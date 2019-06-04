@@ -1,5 +1,3 @@
-
-
 var requestAnimationFrame = window.requestAnimationFrame ||
                             window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame ||
@@ -28,7 +26,8 @@ function create2d(n, m, v) {
 
 var map = create2d(100, 100, 0);
 var cubeSize = 50;
-var mapSize = 20;
+var mapSizeX = 20;
+var mapSizeY = 12;
 
 var mouseX,
     mouseY,
@@ -70,10 +69,14 @@ function update() {
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.globalAlpha = 1;
-    
+
+
+    context.fillStyle = "rgb(0, 100, 0)";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
     var i, j;
-    for(i = 0;i < mapSize;i ++){
-        for(j = 0;j < mapSize;j ++){
+    for(i = 0;i < mapSizeX;i ++){
+        for(j = 0;j < mapSizeY;j ++){
             if(map[i][j] == 0){
                 context.fillStyle = "rgb(255, 0, 0)";
                 context.fillRect(i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);

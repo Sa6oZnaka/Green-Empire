@@ -1,3 +1,5 @@
+import { Field } from './Field.js';
+
 var requestAnimationFrame = window.requestAnimationFrame ||
                             window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame ||
@@ -32,6 +34,8 @@ var mouseX,
     mouseY,
     mousePressX,
     mousePressY;
+
+var a = new Field("Tomatoo", 1000, 3);
 
 window.addEventListener("keydown", function (args) {
     

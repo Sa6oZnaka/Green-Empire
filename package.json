@@ -1,0 +1,23 @@
+{
+  "name": "green-empire",
+  "version": "1.0.0",
+  "description": "",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sa6oznaka/Green-Empire.git"
+  },
+  "author": "Alexandar Karapenev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sa6oznaka/Green-Empire/issues"
+  },
+  "homepage": "https://github.com/sa6oznaka/Green-Empire#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}

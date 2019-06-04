@@ -1,8 +1,6 @@
 let express = require('express'),
     app = express();
 
-app.get('/',(request,response)=>{
-    response.send('Hello Express!');
-});
+app.use(express.static('public'));
 
-app.listen(3010,()=>console.log('node.js express server started at port 3010'));
+app.listen(3010,()=>console.log('NodeJS express server started at port 3010'));

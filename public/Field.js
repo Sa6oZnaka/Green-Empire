@@ -4,7 +4,7 @@ export class Field {
 		this.name = name;
 		this.time = time;
 		this.waterings = waterings;
-		watered = 0;
+		this.watered = 0;
 	}
 
 }

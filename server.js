@@ -8,10 +8,12 @@ app.use(express.static('public'));
 
 app.listen(3010,()=>console.log('NodeJS express server started at port 3010'));
 
-var con = mysql.createConnection(config);
+let con = mysql.createConnection(config);
 
 
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected to MySQL!");
 });
+
+

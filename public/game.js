@@ -17,10 +17,13 @@ var context = canvas.getContext("2d");
 
 var zelenchuci = [];
 
-zelenchuci.push(new Field("kartof", 10, 2));
+zelenchuci.push(new Field("kartof", Date.now(), 2));
 zelenchuci.push(new Field("zele", 2, 1));
 zelenchuci.push(new Field("morkov", 5, 1));
 console.log(JSON.stringify(zelenchuci));
+
+console.log(zelenchuci[0].calcalateTime());
+console.log(zelenchuci[0].ready());
 
 function create2d(n, m, v) {
     var array = [];
@@ -39,11 +42,7 @@ var mapSizeX = 20;
 var mapSizeY = 12;
 
 var mouseX,
-    mouseY,
-    mousePressX,
-    mousePressY;
-
-//var a = new Field("Tomatoo", 1000, 3);
+    mouseY;
 
 window.addEventListener("keydown", function (args) {
     
@@ -61,7 +60,7 @@ window.addEventListener("mousemove", function (args) {
 }, false);
 
 window.addEventListener("mousedown", function (args) {
-    
+
     map[Math.floor(mouseX/cubeSize)][Math.floor(mouseY/cubeSize)] = 1;
     
 }, false);
@@ -86,11 +85,11 @@ function draw() {
     var i, j;
     for(i = 0;i < mapSizeX;i ++){
         for(j = 0;j < mapSizeY;j ++){
-            if(map[i][j] == 0){
+            if(map[i][j] === 0){
                 context.fillStyle = "rgb(255, 0, 0)";
                 context.fillRect(i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
             }
-            if(map[i][j] == 1){
+            if(map[i][j] === 1){
                 context.fillStyle = "rgb(0, 255, 0)";
                 context.fillRect(i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
             }

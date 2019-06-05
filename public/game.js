@@ -1,3 +1,5 @@
+
+import {Field} from './Field.js';
 var requestAnimationFrame = window.requestAnimationFrame ||
                             window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame ||
@@ -12,6 +14,13 @@ canvas.height = 800;
 var context = canvas.getContext("2d");
 
 //==========================//
+
+var zelenchuci = [];
+
+zelenchuci.push(new Field("kartof", 10, 2));
+zelenchuci.push(new Field("zele", 2, 1));
+zelenchuci.push(new Field("morkov", 5, 1));
+console.log(JSON.stringify(zelenchuci));
 
 function create2d(n, m, v) {
     var array = [];

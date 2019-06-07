@@ -1,3 +1,5 @@
+var http = new XMLHttpRequest();
+var url = '/test';
 
 import {Field} from './Field.js';
 var requestAnimationFrame = window.requestAnimationFrame ||
@@ -62,7 +64,12 @@ window.addEventListener("mousemove", function (args) {
 window.addEventListener("mousedown", function (args) {
 
     map[Math.floor(mouseX/cubeSize)][Math.floor(mouseY/cubeSize)] = 1;
+
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    http.send("name=garden&data=" + JSON.stringify(zelenchuci));
     
+
 }, false);
 
 window.addEventListener("mouseup", function (args) {

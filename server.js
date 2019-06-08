@@ -14,12 +14,23 @@ app.post('/updateField',function(req,res){
 
     console.log(req.body);
 
-    var temp = JSON.parse(req.body.data);
+    let temp = JSON.parse(req.body.data);
     console.log(temp);
 
     console.log(temp.name);
 
 });
+
+app.get('/serverTime',function(req,res){
+
+    response = {
+        server_time : Date.now()
+    };
+
+    console.log(response);
+    res.send( JSON.stringify(response) );
+});
+
 
 /*
 let con = mysql.createConnection(config);

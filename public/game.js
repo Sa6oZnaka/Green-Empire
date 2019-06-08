@@ -16,10 +16,10 @@ const context = canvas.getContext("2d");
 
 
 function create2d(n, m, v) {
-    var array = [];
-    for (var i = 0; i < n; ++i) {
+    let array = [];
+    for (let i = 0; i < n; ++i) {
         array[i] = [];
-        for (var j = 0; j < m; ++j) {
+        for (let j = 0; j < m; ++j) {
             array[i][j] = v;
         }
     }
@@ -47,17 +47,39 @@ window.addEventListener("mousedown", function (args) {
     let x = Math.floor(mouseX/cubeSize),
         y = Math.floor(mouseY/cubeSize);
 
-    garden[x][y] = new Field("kartof", Date.now(), 2);
+    getServerTime(function (returnValue) {
+        garden[x][y] = new Field("kartof", returnValue.server_time, 2);
 
-    http.open('POST', '/updateField', true);
-    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    http.send("name=garden&data=" + JSON.stringify(garden[x][y]) + "&x=" + x + "&y=" + y);
+        http.open('POST', '/updateField', true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.send("name=garden&data=" + JSON.stringify(garden[x][y]) + "&x=" + x + "&y=" + y);
+    });
 
 }, false);
 
 function update() {
-    setTimeout(update, 10);
+
+    setTimeout(update, 3000);
 }
+
+function getServerTime(callback){
+    http.open('GET', '/serverTime', true);
+    http.send();
+
+    http.onreadystatechange = processRequest;
+
+    let response;
+    function processRequest(e) {
+        if (http.readyState === 4 && http.status === 200) {
+            response = JSON.parse(http.responseText);
+            console.log(response.server_time);
+
+            callback(response);
+        }
+    }
+}
+
+
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.globalAlpha = 1;
@@ -71,7 +93,7 @@ function draw() {
                 context.fillStyle = "rgb(255, 0, 0)";
                 context.fillRect(i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
             }
-            if(garden[i][j].getName() === "kartof"){
+            if(garden[i][j].getName() === "kartof" && ! garden[i][j].ready()){
                 context.fillStyle = "rgb(0, 255, 0)";
                 context.fillRect(i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
             }

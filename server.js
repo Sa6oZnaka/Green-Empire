@@ -1,29 +1,28 @@
 let express = require('express'),
     app = express();
 
-var jade = require('jade');
 let bodyParser = require('body-parser');
 let mysql = require('mysql');
 let config = require('./config.js');
 
-app.set('view engine', 'jade');
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/test',function(req,res){
+app.post('/updateField',function(req,res){
 
     console.log(req.body);
 
     var temp = JSON.parse(req.body.data);
     console.log(temp);
 
+    console.log(temp.name);
+
 });
 
-
+/*
 let con = mysql.createConnection(config);
-
 
 let sql = `UPDATE User
            SET Garden = ?
@@ -43,5 +42,6 @@ con.query(sql, data, (error, results, fields) => {
     }
     console.log('Rows affected:', results.affectedRows);
 });
+*/
 
 app.listen(3010,()=>console.log('NodeJS express server started at port 3010'));

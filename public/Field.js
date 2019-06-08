@@ -16,4 +16,8 @@ export class Field {
 		return this.calcalateTime() <= 0;
 	}
 
+	getName(){
+		return this.name;
+	}
+
 }

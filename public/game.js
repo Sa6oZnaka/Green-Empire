@@ -14,7 +14,6 @@ canvas.width = 1000;
 canvas.height = 800;
 const context = canvas.getContext("2d");
 
-
 function create2d(n, m, v) {
     let array = [];
     for (let i = 0; i < n; ++i) {

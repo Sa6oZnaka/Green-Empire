@@ -4,7 +4,7 @@ use GreenE;
 
 Create table Users(
 	id INT primary key auto_increment,
-    name varchar(50) NOT NULL,
+    username varchar(50) NOT NULL,
     password varchar(100) NOT NULL
 );
 
@@ -29,12 +29,12 @@ CREATE TABLE Field (
 
 # user 1
 
-Insert into Users(name, password) values ('Goshe', '123asd');
+Insert into Users(username, password) values ('Goshe', '123asd');
 
 Insert into Garden (userId) values (1);
 
 # user 2
 
-Insert into Users(name, password) values ('Mincho', '1234');
+Insert into Users(username, password) values ('Mincho', '1234');
 
 

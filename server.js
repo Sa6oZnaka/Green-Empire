@@ -1,9 +1,18 @@
-let express = require('express'),
-    app = express();
-
+let express = require('express');
+let session = require('express-session');
+let app = express();
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
+let path = require('path');
 let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
+
 let mysql = require('mysql');
 let config = require('./config.js');
+
+let passport = require('passport');
+let flash = require('connect-flash');
+require('./passport')(passport);
 
 let con = mysql.createConnection(config);
 con.connect(function(err) {
@@ -14,10 +23,24 @@ con.connect(function(err) {
     console.log("\x1b[32mConnected to MySQL!\x1b[0m");
 });
 
-app.use(express.static('public'));
-
+app.set('views', __dirname + '/views');
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'justasecret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(express.static('public'));
+require('./route')(app, passport);
 
 app.post('/updateField',function(req,res){
 
@@ -31,7 +54,7 @@ app.post('/updateField',function(req,res){
 
     let data = [
         temp.name,
-        temp.startTime,
+        Date.now(),
         temp.time,
         req.body.x,
         req.body.y,
@@ -84,7 +107,6 @@ function createGarden(){
 function update(sql, data) {
     con.query(sql, data, (error, results, fields) => {
         if (error) {
-            console.log("\x1b[33m");
             return console.error("\x1b[33m" + error.message + "\x1b[0m");
         }
         console.log('Rows affected:', results.affectedRows);

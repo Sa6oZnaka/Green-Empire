@@ -33,23 +33,8 @@ Insert into Users(name, password) values ('Goshe', '123asd');
 
 Insert into Garden (userId) values (1);
 
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 0, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 1, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 2, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 4, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 5, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 6, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 7, 0, 'empty', 1000, 10);
-Insert into Field (gardenId, x, y, name, startTime, time) values (1, 8, 0, 'empty', 1000, 10);
-
 # user 2
 
 Insert into Users(name, password) values ('Mincho', '1234');
 
-
-Update Field SET
-	name = 'zele',
-	startTime = 1000,
-	time = 10
-WHERE Field.x = 2 AND Field.y = 0 AND Field.gardenId = 1;
 

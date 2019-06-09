@@ -27,7 +27,7 @@ app.post('/updateField',function(req,res){
         name = ?,
         startTime = ?,
         time = ?
-    WHERE Field.x = ? AND Field.y = ? AND Field.gardenId = ?;`
+    WHERE Field.x = ? AND Field.y = ? AND Field.gardenId = ?;`;
 
     let data = [
         temp.name,
@@ -38,7 +38,6 @@ app.post('/updateField',function(req,res){
         req.body.userId
     ];
 
-    console.log("DATA BELOW!!!!");
     console.log(data);
 
     update(sql, data);
@@ -56,7 +55,7 @@ app.get('/serverTime',function(req,res){
 
 app.get('/getGarden',function(req,res){
 
-    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.gardenId = 1;`
+    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.gardenId = 1;`;
     // TODO get garden ID
 
     con.query(sql , (error, results, fields) => {
@@ -67,15 +66,26 @@ app.get('/getGarden',function(req,res){
         console.log("\x1b[34mSending garden\x1b[0m");
         res.send( JSON.stringify(results) );
     });
-
-
 });
+
+
+function createGarden(){
+    for(let y = 0; y < 12; y ++){
+        for(let x = 0; x < 20; x ++){
+            sql = `Insert into Field (gardenId, x, y, name, startTime, time) values (?, ?, ?, 'empty', 1000, 10);`;
+            data = [1, x, y];
+
+            update(sql, data);
+        }
+    }
+}
+//createGarden();
 
 function update(sql, data) {
     con.query(sql, data, (error, results, fields) => {
         if (error) {
             console.log("\x1b[33m");
-            return console.error(error.message);
+            return console.error("\x1b[33m" + error.message + "\x1b[0m");
         }
         console.log('Rows affected:', results.affectedRows);
     });

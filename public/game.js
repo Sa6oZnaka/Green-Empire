@@ -104,7 +104,6 @@ function getGarden(callback){
     }
 }
 
-
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.globalAlpha = 1;

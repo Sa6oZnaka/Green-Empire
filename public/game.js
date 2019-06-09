@@ -52,7 +52,7 @@ window.addEventListener("mousedown", function (args) {
 
         http.open('POST', '/updateField', true);
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        http.send("name=garden&data=" + JSON.stringify(garden[x][y]) + "&x=" + x + "&y=" + y);
+        http.send("userId=1&data=" + JSON.stringify(garden[x][y]) + "&x=" + x + "&y=" + y);
     });
 
 }, false);

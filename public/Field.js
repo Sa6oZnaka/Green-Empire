@@ -1,6 +1,6 @@
 export class Field {
 
-	constructor(name, startTime, time, waterings){
+	constructor(name, startTime, time){
 		this.name = name;
 		this.startTime = startTime;
 		this.time = time;

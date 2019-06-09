@@ -57,9 +57,13 @@ window.addEventListener("mousedown", function (args) {
 
 }, false);
 
+getGarden( function (returnValue) {
+    console.log(returnValue);
+});
+
 function update() {
 
-    setTimeout(update, 3000);
+    setTimeout(update, 5000);
 }
 
 function getServerTime(callback){
@@ -73,6 +77,27 @@ function getServerTime(callback){
         if (http.readyState === 4 && http.status === 200) {
             response = JSON.parse(http.responseText);
             console.log(response.server_time);
+
+            callback(response);
+        }
+    }
+}
+
+function getGarden(callback){
+    http.open('GET', '/getGarden', true);
+    http.send();
+
+    http.onreadystatechange = processRequest;
+
+    let response;
+    function processRequest(e) {
+        if (http.readyState === 4 && http.status === 200) {
+            response = JSON.parse(http.responseText);
+            console.log(response);
+
+            for(let i = 0; i < response.length; i++){
+                garden[response[i].x][response[i].y] = new Field(response[i].name, response[i].startTime, response[i].time);
+            }
 
             callback(response);
         }

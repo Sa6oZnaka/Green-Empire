@@ -21,12 +21,7 @@ app.use(bodyParser.json());
 
 app.post('/updateField',function(req,res){
 
-    console.log(req.body);
-
     let temp = JSON.parse(req.body.data);
-    console.log(temp);
-
-    console.log(temp.name);
 
     let sql = `Update Field SET
         name = ?,
@@ -47,8 +42,6 @@ app.post('/updateField',function(req,res){
     console.log(data);
 
     update(sql, data);
-
-
 });
 
 app.get('/serverTime',function(req,res){
@@ -61,14 +54,23 @@ app.get('/serverTime',function(req,res){
     res.send( JSON.stringify(response) );
 });
 
+app.get('/getGarden',function(req,res){
 
-/*let sql = `UPDATE Users
-           SET name = ?
-           WHERE Id = ?`;
+    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.gardenId = 1;`
+    // TODO get garden ID
 
-//let data = ["Koce", 1];
+    con.query(sql , (error, results, fields) => {
+        if (error) {
+            return console.error("\x1b[33m" + error.message + "\x1b[0m");
+        }
 
- */
+        console.log("\x1b[34mSending garden\x1b[0m");
+        res.send( JSON.stringify(results) );
+    });
+
+
+});
+
 function update(sql, data) {
     con.query(sql, data, (error, results, fields) => {
         if (error) {

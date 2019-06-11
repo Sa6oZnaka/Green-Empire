@@ -10,8 +10,8 @@ function (callback) {
 };
 
 let canvas = document.getElementById("canvas-id");
-canvas.width = 1000;
-canvas.height = 800;
+canvas.width = 1200;
+canvas.height = 700;
 const context = canvas.getContext("2d");
 
 function create2d(n, m, v) {

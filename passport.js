@@ -27,8 +27,7 @@ module.exports = function (passport) {
                 passReqToCallback: true
             },
             function (req, username, password, done) {
-                connection.query("SELECT * FROM Users WHERE username = ? ",
-                    [username], function (err, rows) {
+                connection.query("SELECT * FROM Users WHERE username = ? ", [username], function (err, rows) {
                         if (err)
                             return done(err);
                         if (rows.length) {
@@ -41,16 +40,27 @@ module.exports = function (passport) {
 
                             var insertQuery = "INSERT INTO Users (username, password) values (?, ?)";
 
-                            connection.query(insertQuery, [newUserMysql.username, newUserMysql.password],
-                                function (err, rows) {
+                            connection.query(insertQuery, [newUserMysql.username, newUserMysql.password], function (err, rows) {
                                     console.log(err);
-                                    console.log(rows.insertId);
+                                    console.log("ID: " + rows.insertId + " REGISTERED!");
                                     newUserMysql.id = rows.insertId;
 
+                                    for (let y = 0; y < 12; y++) {
+                                        for (let x = 0; x < 20; x++) {
+                                            let sql = `Insert into Field (userId, x, y, name, startTime, time) values (?, ?, ?, 'empty', 1000, 10);`;
+
+                                            connection.query(sql, [newUserMysql.id, x, y], function(err, rows, fields) {
+                                                if (err) throw err;
+                                            });
+
+                                        }
+                                    }
+
                                     return done(null, newUserMysql);
-                                });
+                            });
                         }
-                    });
+                });
+
             })
     );
 

@@ -50,7 +50,7 @@ app.post('/updateField',function(req,res){
         name = ?,
         startTime = ?,
         time = ?
-    WHERE Field.x = ? AND Field.y = ? AND Field.gardenId = ?;`;
+    WHERE Field.x = ? AND Field.y = ? AND Field.userId = ?;`;
 
     let data = [
         temp.name,
@@ -78,7 +78,7 @@ app.get('/serverTime',function(req,res){
 
 app.get('/getGarden',function(req,res){
 
-    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.gardenId = 1;`;
+    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.userId = 1;`;
     // TODO get garden ID
 
     con.query(sql , (error, results, fields) => {
@@ -90,19 +90,6 @@ app.get('/getGarden',function(req,res){
         res.send( JSON.stringify(results) );
     });
 });
-
-
-function createGarden(){
-    for(let y = 0; y < 12; y ++){
-        for(let x = 0; x < 20; x ++){
-            sql = `Insert into Field (gardenId, x, y, name, startTime, time) values (?, ?, ?, 'empty', 1000, 10);`;
-            data = [1, x, y];
-
-            update(sql, data);
-        }
-    }
-}
-//createGarden();
 
 function update(sql, data) {
     con.query(sql, data, (error, results, fields) => {

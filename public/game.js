@@ -47,7 +47,7 @@ window.addEventListener("mousedown", function (args) {
         y = Math.floor(mouseY/cubeSize);
 
     getServerTime(function (returnValue) {
-        garden[x][y] = new Field("kartof", returnValue.server_time, 2);
+        garden[x][y] = new Field("kartof", returnValue.server_time, 500);
 
         http.open('POST', '/updateField', true);
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

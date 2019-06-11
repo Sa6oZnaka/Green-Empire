@@ -7,7 +7,7 @@ export class Field {
 	}
 
 	calcalateTime(){
-		return Date.now() - this.startTime + this.time;
+		return this.startTime + this.time - Date.now();
 	}
 
 	ready(){

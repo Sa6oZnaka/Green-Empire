@@ -58,10 +58,8 @@ app.post('/updateField',function(req,res){
         temp.time,
         req.body.x,
         req.body.y,
-        req.body.userId
+        req.user.id
     ];
-
-    console.log(data);
 
     update(sql, data);
 });
@@ -72,21 +70,18 @@ app.get('/serverTime',function(req,res){
         server_time : Date.now()
     };
 
-    console.log(response);
     res.send( JSON.stringify(response) );
 });
 
 app.get('/getGarden',function(req,res){
 
-    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.userId = 1;`;
-    // TODO get garden ID
+    sql = `Select Field.x, Field.y, Field.name, Field.startTime, Field.time from Field where Field.userId = ?;`;
 
-    con.query(sql , (error, results, fields) => {
+    con.query(sql , [req.user.id], (error, results, fields) => {
         if (error) {
             return console.error("\x1b[33m" + error.message + "\x1b[0m");
         }
-
-        console.log("\x1b[34mSending garden\x1b[0m");
+        console.log("\x1b[34mSending garden for " + req.user.id + "\x1b[0m");
         res.send( JSON.stringify(results) );
     });
 });
@@ -96,7 +91,9 @@ function update(sql, data) {
         if (error) {
             return console.error("\x1b[33m" + error.message + "\x1b[0m");
         }
-        console.log('Rows affected:', results.affectedRows);
+        if(results.affectedRows != 1) {
+            console.log('\x1b[33mRows affected:', results.affectedRows + "\x1b[0m");
+        }
     });
 }
 

@@ -1,14 +1,14 @@
 #canvas-id {
     margin: auto;
     padding: 0;
-    width: 1200px;
-    height: 700px;
+    width: 1000px;
+    height: 600px;
 }
 
 ul {
     list-style-type: none;
 
-    width: 1200px;
+    width: 1000px;
 
     margin: auto;
     padding: 0;

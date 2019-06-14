@@ -33,12 +33,12 @@ module.exports = function (passport) {
                         if (rows.length) {
                             return done(null, false, req.flash('registerMessage', 'That is already taken'));
                         } else {
-                            var newUserMysql = {
+                            let newUserMysql = {
                                 username: username,
                                 password: bcrypt.hashSync(password, null, null)
                             };
 
-                            var insertQuery = "INSERT INTO Users (username, password) values (?, ?)";
+                            let insertQuery = "INSERT INTO Users (username, password, score) values (?, ?, 0)";
 
                             connection.query(insertQuery, [newUserMysql.username, newUserMysql.password], function (err, rows) {
                                     console.log(err);

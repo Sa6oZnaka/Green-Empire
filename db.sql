@@ -5,6 +5,7 @@ use GreenE;
 Create table Users(
 	id INT primary key auto_increment,
     username varchar(50) NOT NULL,
+    score LONG NOT NULL,
     password varchar(100) NOT NULL
 );
 
@@ -21,10 +22,18 @@ CREATE TABLE Field (
     y INT NOT NULL,
     name VARCHAR(50) NOT NULL,
     startTime LONG NOT NULL,
-    time LONG NOT NULL,
+    time INT NOT NULL,
 
     foreign key (userId) references Users(id)
 );
 
+CREATE TABLE Items (
+    name varchar(50) NOT NULL,
+	amount INT NOT NULL,
+    maxAmount INT NOT NULL,
+	userId INT NOT NULL,
+
+    foreign key(userId) references Users(id)
+);
 
 

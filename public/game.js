@@ -53,13 +53,12 @@ window.addEventListener("mousedown", function (args) {
         let x = Math.floor((mouseX - inventorySizeX) / cubeSize),
             y = Math.floor(mouseY / cubeSize);
 
-        getServerTime(function (returnValue) {
-            garden[x][y] = new Field("kartof", returnValue.server_time, 500);
 
-            http.open('POST', '/updateField', true);
-            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            http.send("data=" + JSON.stringify(garden[x][y]) + "&x=" + x + "&y=" + y);
-        });
+        garden[x][y] = new Field("kartof", new Date().getTime(), 5000);
+
+        http.open('POST', '/updateField', true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        http.send("data=" + JSON.stringify(garden[x][y]) + "&x=" + x + "&y=" + y);
     }
 
 }, false);
@@ -103,7 +102,7 @@ function getGarden(callback){
             console.log(response);
 
             for(let i = 0; i < response.length; i++){
-                garden[response[i].x][response[i].y] = new Field(response[i].name, response[i].startTime, response[i].time);
+                garden[response[i].x][response[i].y] = new Field(response[i].name, response[i].startTime*10000, response[i].time);
             }
 
             callback(response);
@@ -136,11 +135,14 @@ function draw() {
     for(let i = 0;i < mapSizeX;i ++){
         for(let j = 0;j < mapSizeY;j ++){
             if(garden[i][j].getName() === "empty"){
-                context.fillStyle = "rgb(255, 0, 0)";
+                context.fillStyle = "rgb(100, 100, 100)";
                 context.fillRect(inventorySizeX + i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
             }
             if(garden[i][j].getName() === "kartof" && ! garden[i][j].ready()){
                 context.fillStyle = "rgb(0, 255, 0)";
+                context.fillRect(inventorySizeX + i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
+            }else if(garden[i][j].getName() === "kartof" && garden[i][j].ready()){
+                context.fillStyle = "rgb(255 , 100, 0)";
                 context.fillRect(inventorySizeX + i * cubeSize, j * cubeSize, cubeSize - 1, cubeSize - 1);
             }
         }

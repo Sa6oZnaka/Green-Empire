@@ -1,9 +1,6 @@
 let express = require('express');
 let session = require('express-session');
 let app = express();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
-let path = require('path');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 
@@ -54,7 +51,7 @@ app.post('/updateField',function(req,res){
 
     let data = [
         temp.name,
-        Date.now(),
+        new Date().getTime(),
         temp.time,
         req.body.x,
         req.body.y,
@@ -67,7 +64,7 @@ app.post('/updateField',function(req,res){
 app.get('/serverTime',function(req,res){
 
     response = {
-        server_time : Date.now()
+        server_time : new Date().getTime()
     };
 
     res.send( JSON.stringify(response) );
@@ -91,7 +88,7 @@ function update(sql, data) {
         if (error) {
             return console.error("\x1b[33m" + error.message + "\x1b[0m");
         }
-        if(results.affectedRows != 1) {
+        if(results.affectedRows !== 1) {
             console.log('\x1b[33mRows affected:', results.affectedRows + "\x1b[0m");
         }
     });
